@@ -19,6 +19,7 @@ iptables -t filter -P OUTPUT ACCEPT
 iptables -A INPUT  -i lo -j ACCEPT
 
 iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p gre -j ACCEPT # VPN
 iptables -A INPUT -m conntrack --ctstate INVALID -j LOG --log-level warning --log-prefix "[IPT] Packet INVALID: "
 iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
 
