@@ -12,7 +12,7 @@ RULES=/etc/iptables.rules
 
 if [ ! -f $RULES ]
 then
-	iptables-save -c > $RULES
+	iptables-save > $RULES
 fi
 
 . /lib/lsb/init-functions
@@ -25,7 +25,7 @@ start|restart|reload|force-reload)
 	;;
 stop)
 	log_daemon_msg "Stopping iptables" "iptables"
-	iptables-save -c > $RULES
+	iptables-save > $RULES
 	for t in filter nat mangle
 	do
 		iptables -t $t -F
@@ -47,7 +47,7 @@ status)
 	;;
 save)
 	log_daemon_msg "Staving iptables" "iptables"
-	iptables-save -c > $RULES
+	iptables-save > $RULES
 	log_end_msg $?
 	;;
 *)
