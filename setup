@@ -18,7 +18,8 @@ iptables -A INPUT -p icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT # P
 
 iptables -A INPUT -p udp -m conntrack --ctstate NEW -m multiport --dports 53,5353 -j ACCEPT # DNS
 
-iptables -A INPUT -p udp -m multiport --dport 137,138,1947,17500 -j DROP
+iptables -I INPUT -p udp -m pkttype --pkt-type broadcast -j DROP # Drop broadcast
+iptables -A INPUT -p udp -m multiport --dport 1947,17500 -j DROP
 
 iptables -A INPUT -j LOG --log-level info --log-prefix "[IPT] Drop INPUT: "
 iptables -A INPUT -p tcp -j REJECT --reject-with tcp-reset 
